@@ -24,7 +24,7 @@ namespace IpNotifier
 			Utils.Log("**************************************************************");
 			Utils.Log("App Started");
 			if (ResolveIp() && (Utils.IpHasChanged(IpAddress) || !Globals.SendMailOnlyOnIpChange))
-				DoResponse();
+				ProcessResponse();
 			Utils.Log("App Stopped");
 			Utils.Log("**************************************************************");
 		}
@@ -58,7 +58,7 @@ namespace IpNotifier
 			return false;
 		}
 
-		static bool DoResponse()
+		static bool ProcessResponse()
 		{
 			string body = @"Your current IP Address is " + IpAddress;
 			Utils.SendMail(body, @"Your IP Address update notification");
