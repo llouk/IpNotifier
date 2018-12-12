@@ -44,7 +44,7 @@ namespace IpNotifier
 						throw new Exception(string.Format("Not Valid IpAddress ({0})", contentResponse));
 
 					IpAddress = contentResponse;
-					Utils.Log("IpResolved: " + IpAddress);
+					Utils.Log(string.Format("IpResolved: {0}", IpAddress));
 					Utils.StoreLastIp(IpAddress);
 					return true;
 				}
