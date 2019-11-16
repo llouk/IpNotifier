@@ -16,7 +16,7 @@ namespace IpNotifier
 		/// <param name="message"></param>
 		public static void Log(string message)
 		{
-			message = DateTime.Now.ToString() + " : " + message;
+			message = string.Format("{0} : {1}",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), message);
 			Console.WriteLine(message);
 			using (StreamWriter outputFile = File.AppendText(Globals.LogFilePath))
 			{
@@ -72,9 +72,14 @@ namespace IpNotifier
 				mailClient.EnableSsl = Globals.SmtpEnableSsl;
 
 				MailMessage myMail = new MailMessage();
-				Globals.MailTo.ForEach(rcp => myMail.To.Add(rcp));
-				Globals.MailCc.ForEach(cc => myMail.CC.Add(cc));
-				Globals.MailBcc.ForEach(bcc => myMail.Bcc.Add(bcc));
+				//Globals.MailTo.ForEach(rcp => myMail.To.Add(rcp));
+				//Globals.MailCc.ForEach(cc => myMail.CC.Add(cc));
+				//Globals.MailBcc.ForEach(bcc => myMail.Bcc.Add(bcc));
+
+				Globals.MailTo.ForEach(myMail.To.Add);
+				Globals.MailCc.ForEach(myMail.CC.Add);
+				Globals.MailBcc.ForEach(myMail.Bcc.Add);
+
 				myMail.SubjectEncoding = Encoding.UTF8;
 				myMail.Subject = subject;
 				myMail.BodyEncoding = Encoding.UTF8;
